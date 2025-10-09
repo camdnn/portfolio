@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Play, Moon, Sun } from "lucide-react";
+import { Mail, Moon, Sun } from "lucide-react";
 import { AiOutlineGithub } from "react-icons/ai";
 
 const PROFILE = {
@@ -15,18 +15,30 @@ const PROJECTS = [
   {
     title: "Algebra Learning Platform",
     blurb:
-      "Interactive practice app with responsive UI, NoSQL data, and a built‑in AI chatbot for on‑demand hints. Private on GitHub, feel free to ask for permission.",
-    tech: ["React", "Tailwind", "Node/Express", "MongoDB"],
-    videoSrc: "/videos/algebra-demo.mp4",
+      "Project lead for interactive algebra practice site with a built-in AI chatbot, improving user support with instant hints and error explanations. Built using NoSQL persistence through MongoDB Atlas.",
+    tech: ["HTML", "CSS", "JavaScript", "Express", "MongoDB"],
+    videoSrc: "/videos/MuchoMathDemo.mp4",
+    thumbnail: "/images/MuchoMathDemo-poster.jpg",
     codeUrl: "#",
   },
   {
     title: "Online Ordering Platform",
     blurb:
-      "Full‑stack prototype with dynamic menu CRUD, NoSQL persistence, and in‑progress POS integrations. Private on GitHub, feel free to ask for permission.",
-    tech: ["React", "Node/Express", "MongoDB"],
-    videoSrc: "/videos/ordering-demo.mp4",
+      "Built a working prototype of an ordering web app with dynamic CRUD operations, user auth, cart, and checkout. Building REST API backend using PostgreSQL and Express.js for data management. Currently integrating real-time data sync with POS systems to pull menus, prices, and inventory into the app.",
+    tech: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind", "Stripe"],
+    videoSrc: "/videos/PretzlDemo.mp4",
+    thumbnail: "/images/PretzlDemo-poster.jpg",
     codeUrl: "#",
+    inProgress: true,
+  },
+  {
+    title: "Lower Limb Exoskeleton Assist Club (LLEAP)",
+    blurb:
+      "Contributing to student-led exoskeleton project to aid individuals with lower limb mobility challenges. Conducting robotic simulation using ROS2, Gazebo, MoveIt and rviz frameworks. Collaboration with electrical engineering and biomechanical teams.",
+    tech: ["ROS2", "Gazebo", "MoveIt", "rviz", "Python"],
+    imageSrc: "/images/ProjectLLEAP.png",
+    codeUrl: "#",
+    inProgress: true,
   },
 ];
 
@@ -104,7 +116,6 @@ export default function Page() {
       </section>
 
       {/* Projects */}
-
       <section className="px-6 py-5 max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-12">Projects</h2>
         <div className="space-y-10">
@@ -185,9 +196,12 @@ function ProjectCard({
     title: string;
     blurb: string;
     tech: string[];
-    videoSrc: string;
+    videoSrc?: string;
+    imageSrc?: string;
+    thumbnail?: string;
     codeUrl?: string;
     liveUrl?: string;
+    inProgress?: boolean;
   };
   index: number;
   darkMode: boolean;
@@ -203,7 +217,20 @@ function ProjectCard({
         darkMode ? "border-slate-700" : "border-slate-200"
       }`}
     >
-      <h3 className="text-2xl font-semibold mb-4">{project.title}</h3>
+      <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
+        {project.title}
+        {project.inProgress && (
+          <span
+            className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+              darkMode
+                ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                : "bg-amber-50 text-amber-700 border border-amber-200"
+            }`}
+          >
+            In Progress
+          </span>
+        )}
+      </h3>
 
       <div
         className={`aspect-video mb-6 rounded-lg overflow-hidden border ${
@@ -212,12 +239,21 @@ function ProjectCard({
             : "bg-slate-100 border-slate-200"
         }`}
       >
-        <video
-          className="h-full w-full object-cover"
-          src={project.videoSrc}
-          controls
-          preload="metadata"
-        />
+        {project.videoSrc ? (
+          <video
+            className="h-full w-full object-cover"
+            src={project.videoSrc}
+            poster={project.thumbnail}
+            controls
+            preload="metadata"
+          />
+        ) : project.imageSrc ? (
+          <img
+            className="h-full w-full object-cover"
+            src={project.imageSrc}
+            alt={project.title}
+          />
+        ) : null}
       </div>
 
       <p
