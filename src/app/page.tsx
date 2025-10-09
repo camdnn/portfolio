@@ -3,12 +3,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Moon, Sun } from "lucide-react";
 import { AiOutlineGithub } from "react-icons/ai";
-
+import { GrDocumentText } from "react-icons/gr";
 const PROFILE = {
   name: "Camden Mann",
   tagline: "Computer Science @ Cal Poly SLO '27",
   email: "camden.mann0105@gmail.com",
   github: "https://github.com/camdnn",
+  resume: "/images/Resume - Camden Mann.pdf",
 };
 
 const PROJECTS = [
@@ -110,6 +111,19 @@ export default function Page() {
             >
               <AiOutlineGithub className="h-4 w-4" />
               GitHub
+            </a>
+            <a
+              href={PROFILE.resume}
+              target="_blank"
+              rel="noreferrer"
+              className={`inline-flex items-center gap-2 text-sm transition-colors ${
+                darkMode
+                  ? "text-slate-400 hover:text-slate-200"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <GrDocumentText className="h-4 w-4" />
+              Resume
             </a>
           </nav>
         </motion.div>
