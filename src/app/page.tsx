@@ -142,7 +142,7 @@ export default function Page() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl font-bold mb-4">Skills</h2>
+            <h2 className="text-2xl font-bold mb-4n">Skills</h2>
             <div className="flex flex-wrap gap-2">
               {Object.values(SKILLS)
                 .flat()
