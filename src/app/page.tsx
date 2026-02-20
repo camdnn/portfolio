@@ -400,7 +400,7 @@ function ProjectCard({
                   window.open(project.codeUrl!, "_blank");
                 }
               }}
-              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
+              className={`cursor-pointer inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
                 darkMode
                   ? "text-slate-300 hover:text-white"
                   : "text-slate-700 hover:text-slate-900"
