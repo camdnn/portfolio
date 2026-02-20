@@ -1,53 +1,68 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Moon, Sun } from "lucide-react";
+import { Mail, Moon, Sun, ExternalLink } from "lucide-react";
 import { AiOutlineGithub } from "react-icons/ai";
 import { GrDocumentText } from "react-icons/gr";
+import { FaLinkedin } from "react-icons/fa";
+
+import { link } from "fs";
 
 const PROFILE = {
   name: "Camden Mann",
-  tagline: "Computer Science @ Cal Poly SLO '27",
+  tagline: "Full-Stack Engineer · Cal Poly SLO '27",
+  bio: "I build production web applications and robotics systems. Comfortable across the stack — REST API design, React frontends, relational databases, and ROS2 simulation.",
   email: "camden.mann0105@gmail.com",
   github: "https://github.com/camdnn",
+  linkedin: "https://www.linkedin.com/in/camden-mann-461249328/",
   resume: "/images/Resume - Camden Mann.pdf",
 };
 
-const SKILLS = {
-  languages: ["C++", "Python", "Java", "JavaScript"],
-  frontend: ["React", "HTML", "CSS", "Tailwind"],
-  backend: ["Node.js", "Express"],
-  databases: ["PostgreSQL", "MongoDB"],
-  tools: ["ROS2", "Gazebo", "MoveIt", "Git"],
+const SKILLS: Record<string, string[]> = {
+  Languages: ["C++", "Python", "Java", "JavaScript"],
+  Frontend: ["React", "HTML", "CSS", "Tailwind"],
+  Backend: ["Node.js", "Express", "PostgreSQL", "MongoDB"],
+  Tools: ["ROS2", "Gazebo", "MoveIt", "Git"],
 };
 
 const PROJECTS = [
   {
-    title: "Algebra Learning Platform",
+    title: "CalPoly Scheduler",
     blurb:
-      "Project lead for interactive algebra practice site with a built-in AI chatbot, improving user support with instant hints and error explanations. Built using NoSQL persistence through MongoDB Atlas.",
-    tech: ["HTML", "CSS", "JavaScript", "Express", "MongoDB"],
-    videoSrc: "/videos/MuchoMathDemo.mp4",
-    thumbnail: "/images/MuchoMathDemo-poster.jpg",
-    codeUrl: "#",
+      "Full-stack course scheduling tool actively used by Cal Poly students. Built a Scrapy web scraper to pull live course data, professor ratings, and seat availability into PostgreSQL. Implements conflict-free schedule generation with time constraint and preference filters.",
+    tech: ["React", "Python", "Scrapy", "PostgreSQL", "Node.js"],
+    imageSrc: "/images/calpolyscheduler.png",
+    liveUrl: "https://www.calpolyscheduler.com/",
+    codeUrl: null,
+    inProgress: false,
   },
   {
     title: "Online Ordering Platform",
     blurb:
-      "Built a working prototype of an ordering web app with dynamic CRUD operations, user auth, cart, and checkout. Building REST API backend using PostgreSQL and Express.js for data management. Currently integrating real-time data sync with POS systems to pull menus, prices, and inventory into the app.",
-    tech: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind", "Stripe"],
+      "Full-stack restaurant ordering platform with user auth, cart, and Stripe checkout. Express + PostgreSQL REST API handles menu, pricing, and inventory. Currently architecting a real-time sync layer to pull live data from POS systems.",
+    tech: ["React", "Node.js", "Express", "PostgreSQL", "Stripe", "Tailwind"],
     videoSrc: "/videos/PretzlDemo.mp4",
     thumbnail: "/images/PretzlDemo-poster.jpg",
     codeUrl: "#",
     inProgress: true,
   },
   {
-    title: "Lower Limb Exoskeleton Assist Club (LLEAP)",
+    title: "AI Algebra Tutor",
     blurb:
-      "Contributing to student-led exoskeleton project to aid individuals with lower limb mobility challenges. Conducting robotic simulation using ROS2, Gazebo, MoveIt and rviz frameworks. Collaboration with electrical engineering and biomechanical teams.",
-    tech: ["ROS2", "Gazebo", "MoveIt", "rviz", "Python"],
-    imageSrc: "/images/ProjectLLEAP.png",
+      "Led a team building an AI-powered algebra tutoring platform. Architected the full-stack system (Express + MongoDB Atlas) and integrated an LLM-backed chatbot that delivers real-time hints and step-by-step error explanations.",
+    tech: ["JavaScript", "Express", "MongoDB", "HTML", "CSS"],
+    videoSrc: "/videos/MuchoMathDemo.mp4",
+    thumbnail: "/images/MuchoMathDemo-poster.jpg",
     codeUrl: "#",
+    inProgress: false,
+  },
+  {
+    title: "Lower Limb Exoskeleton (LLEAP)",
+    blurb:
+      "Building simulation infrastructure for a student-designed lower-limb exoskeleton to aid individuals with mobility challenges. Modeling joint kinematics and validating motor control algorithms in ROS2/Gazebo before hardware deployment. Cross-functional collaboration with EE and biomechanics sub-teams.",
+    tech: ["ROS2", "Gazebo", "MoveIt", "Python", "rviz"],
+    imageSrc: "/images/ProjectLLEAP.png",
+    codeUrl: null,
     inProgress: true,
   },
 ];
@@ -81,17 +96,24 @@ export default function Page() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-10"
         >
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-1">
             {PROFILE.name}
           </h1>
           <p
-            className={`text-base mb-6 ${
-              darkMode ? "text-slate-400" : "text-slate-600"
+            className={`text-base font-medium mb-3 ${
+              darkMode ? "text-slate-400" : "text-slate-500"
             }`}
           >
             {PROFILE.tagline}
+          </p>
+          <p
+            className={`text-sm mb-6 max-w-xl leading-relaxed ${
+              darkMode ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            {PROFILE.bio}
           </p>
           <nav className="flex gap-5">
             <a
@@ -119,6 +141,19 @@ export default function Page() {
               GitHub
             </a>
             <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                darkMode
+                  ? "text-slate-300 hover:text-white"
+                  : "text-slate-700 hover:text-slate-900"
+              }`}
+            >
+              <FaLinkedin className="h-4 w-4" />
+              LinkedIn
+            </a>
+            <a
               href={PROFILE.resume}
               target="_blank"
               rel="noreferrer"
@@ -134,40 +169,8 @@ export default function Page() {
           </nav>
         </motion.section>
 
-        {/* Skills Section */}
-        <section className="mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-2xl font-bold mb-4n">Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {Object.values(SKILLS)
-                .flat()
-                .map((skill, idx) => (
-                  <motion.span
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.2, delay: idx * 0.02 }}
-                    className={`text-sm px-3 py-1.5 rounded-full font-medium transition-all hover:scale-105 ${
-                      darkMode
-                        ? "text-slate-200 bg-slate-800/80 hover:bg-slate-700"
-                        : "text-slate-700 bg-white hover:bg-slate-100 shadow-sm"
-                    }`}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-            </div>
-          </motion.div>
-        </section>
-
         {/* Projects */}
-        <section>
+        <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Projects</h2>
           <div className="space-y-8">
             {PROJECTS.map((p, i) => (
@@ -182,8 +185,50 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Skills Section */}
+        <section className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-2xl font-bold mb-5">Skills</h2>
+            <div className="space-y-3">
+              {Object.entries(SKILLS).map(([category, skills]) => (
+                <div
+                  key={category}
+                  className="flex flex-wrap items-baseline gap-x-3 gap-y-2"
+                >
+                  <span
+                    className={`text-xs font-semibold uppercase tracking-wider w-20 shrink-0 ${
+                      darkMode ? "text-slate-500" : "text-slate-400"
+                    }`}
+                  >
+                    {category}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills.map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className={`text-sm px-3 py-1 rounded-full font-medium ${
+                          darkMode
+                            ? "text-slate-200 bg-slate-800/80"
+                            : "text-slate-700 bg-white shadow-sm"
+                        }`}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
         {/* Footer */}
-        <footer className="mt-20 pt-8 border-t border-slate-200 dark:border-slate-800">
+        <footer className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
           <div
             className={`text-sm ${
               darkMode ? "text-slate-500" : "text-slate-500"
@@ -194,7 +239,7 @@ export default function Page() {
         </footer>
       </div>
 
-      {/* Popup Modal */}
+      {/* Private Repo Popup */}
       {showPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
@@ -247,7 +292,7 @@ function ProjectCard({
     videoSrc?: string;
     imageSrc?: string;
     thumbnail?: string;
-    codeUrl?: string;
+    codeUrl?: string | null;
     liveUrl?: string;
     inProgress?: boolean;
   };
@@ -267,31 +312,33 @@ function ProjectCard({
           : "bg-white hover:shadow-lg shadow-md"
       }`}
     >
-      <div
-        className={`aspect-video overflow-hidden ${
-          darkMode ? "bg-slate-800" : "bg-slate-100"
-        }`}
-      >
-        {project.videoSrc ? (
-          <video
-            className="h-full w-full object-cover"
-            src={project.videoSrc}
-            poster={project.thumbnail}
-            controls
-            preload="metadata"
-          />
-        ) : project.imageSrc ? (
-          <img
-            className="h-full w-full object-cover"
-            src={project.imageSrc}
-            alt={project.title}
-          />
-        ) : null}
-      </div>
+      {(project.videoSrc || project.imageSrc) && (
+        <div
+          className={`aspect-video overflow-hidden ${
+            darkMode ? "bg-slate-800" : "bg-slate-100"
+          }`}
+        >
+          {project.videoSrc ? (
+            <video
+              className="h-full w-full object-cover"
+              src={project.videoSrc}
+              poster={project.thumbnail}
+              controls
+              preload="metadata"
+            />
+          ) : (
+            <img
+              className="h-full w-full object-cover"
+              src={project.imageSrc}
+              alt={project.title}
+            />
+          )}
+        </div>
+      )}
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-          {project.title}
+        <div className="flex items-center gap-2 mb-2">
+          <h3 className="text-xl font-semibold">{project.title}</h3>
           {project.inProgress && (
             <span
               className={`text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -303,7 +350,7 @@ function ProjectCard({
               In Progress
             </span>
           )}
-        </h3>
+        </div>
 
         <p
           className={`mb-4 text-sm leading-relaxed ${
@@ -328,19 +375,42 @@ function ProjectCard({
           ))}
         </div>
 
-        {project.codeUrl && (
-          <button
-            onClick={() => setShowPopup(true)}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
-              darkMode
-                ? "text-slate-300 hover:text-white"
-                : "text-slate-700 hover:text-slate-900"
-            }`}
-          >
-            <AiOutlineGithub className="h-4 w-4" />
-            View code
-          </button>
-        )}
+        <div className="flex gap-4">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                darkMode
+                  ? "text-slate-300 hover:text-white"
+                  : "text-slate-700 hover:text-slate-900"
+              }`}
+            >
+              <ExternalLink className="h-4 w-4" />
+              Live Site
+            </a>
+          )}
+          {project.codeUrl && (
+            <button
+              onClick={() => {
+                if (project.codeUrl === "#") {
+                  setShowPopup(true);
+                } else {
+                  window.open(project.codeUrl!, "_blank");
+                }
+              }}
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                darkMode
+                  ? "text-slate-300 hover:text-white"
+                  : "text-slate-700 hover:text-slate-900"
+              }`}
+            >
+              <AiOutlineGithub className="h-4 w-4" />
+              View Code
+            </button>
+          )}
+        </div>
       </div>
     </motion.article>
   );
