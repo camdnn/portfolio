@@ -44,6 +44,17 @@ const PROJECTS = [
     inProgress: false,
   },
   {
+    title: "Constryke - Irvine Hacks 2026",
+    blurb:
+      "Built in under 32 hours, Constryke is an AI-driven fraud detection system designed to prevent real estate wire transfer scams. The platform parses escrow documents and email communications, extracts structured transaction data, and analyzes email metadata to detect Business Email Compromise patterns such as last-minute instruction changes, pressure language, routing mismatches, and domain impersonation.",
+    tech: ["React", "Python", "Next.js"],
+    videoSrc: "/videos/constryke.mp4",
+    thumbnail: "/images/constryke.png",
+    liveUrl: "",
+    codeUrl: null,
+    inProgress: false,
+  },
+  {
     title: "Online Ordering Platform",
     blurb:
       "Full-stack restaurant ordering platform with user auth, cart, and Stripe checkout. Express + PostgreSQL REST API handles menu, pricing, and inventory. Currently architecting a real-time sync layer to pull live data from POS systems.",
@@ -263,23 +274,6 @@ export default function Page() {
             variants={stagger}
             className="space-y-8"
           >
-            {/* Eyebrow */}
-            <motion.div variants={fadeUp} className="flex items-center gap-2.5">
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full"
-                style={{
-                  background: accent,
-                  boxShadow: `0 0 8px ${accent}99`,
-                }}
-              />
-              <span
-                className="text-xs tracking-[0.2em] uppercase font-semibold"
-                style={{ color: muted }}
-              >
-                Open to opportunities
-              </span>
-            </motion.div>
-
             {/* Name — editorial split with stroke treatment */}
             <motion.h1
               variants={fadeUp}
@@ -301,10 +295,7 @@ export default function Page() {
 
             {/* Tagline + bio */}
             <motion.div variants={fadeUp} className="max-w-lg space-y-3 pt-2">
-              <p
-                className="text-base font-semibold"
-                style={{ color: accent }}
-              >
+              <p className="text-base font-semibold" style={{ color: accent }}>
                 {PROFILE.tagline}
               </p>
               <p className="text-sm leading-[1.75]" style={{ color: muted }}>
@@ -368,9 +359,7 @@ export default function Page() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
                   style={{ color: "inherit" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = accent)
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.color = accent)}
                   onMouseLeave={(e) => (e.currentTarget.style.color = muted)}
                 >
                   {icon}
@@ -557,7 +546,11 @@ export default function Page() {
                 I&apos;m open to internships, freelance projects, and
                 interesting collaborations. Drop me a line anytime.
               </p>
-              <ContactEmail email={PROFILE.email} accent={accent} accentHover={accentHover} />
+              <ContactEmail
+                email={PROFILE.email}
+                accent={accent}
+                accentHover={accentHover}
+              />
             </motion.div>
           </Section>
         </div>
@@ -639,7 +632,15 @@ export default function Page() {
 
 // ── ContactEmail ──────────────────────────────────────────────────────────────
 
-function ContactEmail({ email, accent, accentHover }: { email: string; accent: string; accentHover: string }) {
+function ContactEmail({
+  email,
+  accent,
+  accentHover,
+}: {
+  email: string;
+  accent: string;
+  accentHover: string;
+}) {
   const [hovered, setHovered] = useState(false);
   const color = hovered ? accentHover : accent;
   return (
@@ -779,7 +780,9 @@ function ProjectCard({
             <span
               className="text-xs px-2 py-0.5 rounded-full font-semibold"
               style={{
-                background: dark ? "rgba(178,176,172,0.15)" : "rgba(92,90,87,0.12)",
+                background: dark
+                  ? "rgba(178,176,172,0.15)"
+                  : "rgba(92,90,87,0.12)",
                 color: dark ? "#B2B0AC" : "#5C5A57",
               }}
             >
@@ -818,8 +821,12 @@ function ProjectCard({
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
               style={{ color: accent }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = accentHover)}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = accent)}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLElement).style.color = accentHover)
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLElement).style.color = accent)
+              }
             >
               <ExternalLink className="h-3.5 w-3.5" />
               Live Site
