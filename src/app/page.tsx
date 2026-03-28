@@ -26,7 +26,7 @@ const PROFILE = {
 };
 
 const SKILLS: Record<string, string[]> = {
-  Languages: ["C++", "Python", "Java", "JavaScript"],
+  Languages: ["C++", "Python", "Java", "JavaScript", "TypeScript"],
   Frontend: ["React", "HTML", "CSS", "Tailwind"],
   Backend: ["Node.js", "Express", "PostgreSQL", "MongoDB"],
   Tools: ["ROS2", "Gazebo", "MoveIt", "Git"],
@@ -34,13 +34,22 @@ const SKILLS: Record<string, string[]> = {
 
 const PROJECTS = [
   {
+    title: "Neuroevolution with NEAT: Solving the Chrome Dino Game",
+    blurb:
+      "Built an AI agent to autonomously play the Chrome Dino Game using Neuroevolution of Augmenting Topologies (NEAT). The model evolves neural network structures and weights over generations, learning optimal jump and timing strategies without supervised data. Achieved consistent high scores through emergent behavior and fitness-based selection.",
+    tech: ["Python", "PyGame", "Neat"],
+    imageSrc: "/images/calpolyscheduler.png",
+    codeUrl: "https://github.com/roanmorgan53/dinogameevo/tree/neat",
+    inProgress: false,
+  },
+  {
     title: "CalPoly Scheduler",
     blurb:
       "Full-stack course scheduling tool actively used by Cal Poly students. Built a Scrapy web scraper to pull live course data, professor ratings, and seat availability into PostgreSQL. Implements conflict-free schedule generation with time constraint and preference filters.",
     tech: ["React", "Python", "Scrapy", "PostgreSQL", "Node.js"],
     imageSrc: "/images/calpolyscheduler.png",
     liveUrl: "https://www.calpolyscheduler.com/",
-    codeUrl: null,
+    codeUrl: "https://github.com/camdnn/CalPolySchedule",
     inProgress: false,
   },
   {
@@ -51,7 +60,7 @@ const PROJECTS = [
     videoSrc: "/videos/constryke.mp4",
     thumbnail: "/images/constryke.png",
     liveUrl: "",
-    codeUrl: null,
+    codeUrl: "https://github.com/sawyervalin/irvinehacks2026",
     inProgress: false,
   },
   {
