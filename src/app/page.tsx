@@ -38,7 +38,7 @@ const PROJECTS = [
     blurb:
       "Built an AI agent to autonomously play the Chrome Dino Game using Neuroevolution of Augmenting Topologies (NEAT). The model evolves neural network structures and weights over generations, learning optimal jump and timing strategies without supervised data. Achieved consistent high scores through emergent behavior and fitness-based selection.",
     tech: ["Python", "PyGame", "Neat"],
-    imageSrc: "/images/calpolyscheduler.png",
+    imageSrc: "/images/mlgame.png",
     codeUrl: "https://github.com/roanmorgan53/dinogameevo/tree/neat",
     inProgress: false,
   },
